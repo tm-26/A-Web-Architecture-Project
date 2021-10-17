@@ -1,0 +1,79 @@
+{% extends "admin_layout.html" %}
+
+{%block style%}
+<link rel="stylesheet" type="text/css" href="../../menu/menu.css">
+<title>Admin - Dish Preview</title>
+{%endblock%}
+
+{% block sidenav %}
+    {% include 'admin_sidenav.html'%}
+{% endblock %}
+{% block content %}
+
+    <div class="main">
+        <h2> Preview the updated item as seen in the menu page </h2>
+        <div class="menu">
+            <table class="collapsible_table">
+                <tr>
+                    <td class="collapsible_row">
+                        <button class="collapsible" id="menuEdit">
+                            <p class="circle">€ {{item_price}}</p> <!--Output price -->
+                            <h3>{{item_name}}</h3> <!-- Output name -->                       
+                        </button>
+                    </td>
+                    <td>
+                        <form id="favourites{{item.item_id}}" action="">
+                            <input class="favourites_heart" id="favourites_heart{{item.item_id}}" src='../../images/favourites/heart_empty.png' type="image" width="60" height="60">
+                        </form>
+                        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+                        <script type="text/javascript">
+                            $('#favourites{{item.item_id}}').click(function(e) {
+                                e.preventDefault();
+                                var heart = document.getElementById("favourites_heart{{item.item_id}}");
+                                if(heart.src == 'http://localhost/part_2/images/favourites/heart_empty.png')
+                                {
+                                    heart.src="../../images/favourites/heart_filled.png";
+                                }
+                                else
+                                {  
+                                    heart.src="../../images/favourites/heart_empty.png";
+                                }
+                            });
+                        </script>
+                    </td>
+                </tr>   
+            </table>
+            <div class="content" style="max-height: none">      
+                <img src = "../../images/dishes/{{item_image}}" >  <!-- OUTPUT PICTURE -->
+                <h4 style="text-align: center">
+                    {{item_description}} 
+                </h4>         
+            </div>
+            <form action="" method="post" style="text-align:center">
+                <input type="hidden" name="confirm2" value="add">
+                <input class = "change" type="submit" name="confirm" value="Submit" />
+            </form>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> <!--To import jquery-->
+    <script type="text/javascript">
+        var coll = document.getElementsByClassName("collapsible_table");
+        var i;
+        for (i = 0; i < coll.length; i++) {
+            (coll[i].getElementsByClassName("collapsible"))[0].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.closest('table').nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+
+        $(document).ready(function(){
+            $("#dishes").addClass("current"); //To make the css style apply to the current section by adding class 'current' to it
+        });
+    </script>
+{% endblock %}

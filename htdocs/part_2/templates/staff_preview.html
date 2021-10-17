@@ -1,0 +1,52 @@
+{% extends "admin_layout.html" %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css" href="../../about_us/aboutStyle.css">  
+<title>Admin - Staff Preview</title>
+{% endblock %}
+
+{% block sidenav %}
+    {% include 'admin_sidenav.html'%}
+{% endblock %}
+
+{% block content %}
+    <div class="main">
+        
+        <h1> Preview the updated employee as seen in about us  </h1>
+        <div class = "aboutPage">
+            <table>
+                <tr>
+                    <th>
+                        <div class="image-box">
+                            <img class="image" src= "../../images/staff/{{image}}" alt="ImageLeft">
+                        </div>
+                    </th>
+                    <th>
+                        <h2>{{name}}</h2>
+                        <h3>{{position}}</h3>
+                        <p>{{description}}</p>  
+                        
+                    </th>
+                </tr>
+            </table>
+            
+            <div id = "staffPreviewButtons">
+                <form action="" method="post">
+                    <input type="hidden" name="confirm2" value="add">
+                    <input type="submit" class = "change" name="confirm" value="Submit"/>
+                </form>
+                <form action="admin_staff.php" method="post">
+                    <input type="submit" class = "change" name="cancel" value="Cancel">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> <!--To import jquery-->
+    <script>
+        $(document).ready(function(){
+            $("#staff").addClass("current"); //To make the css style apply to the current section by adding class 'current' to it
+        });
+    </script>
+
+{% endblock %}

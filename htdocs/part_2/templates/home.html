@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" media="screen" href="homeStyle.css">
+    <title>Jack's Eat House</title>
+{% endblock %}
+        
+{% block menu %}
+    {% include 'slideAndMenu.html' %}
+{% endblock %}
+
+{% block content%}
+    <div id = "homePage">
+            <div id = "pictureDiv">
+        {%for special in specials%}
+            <div class="food-area" id = "picture{{special.id}}">
+                <a href="../menu/menu.php">
+                    <img class="food-image" src="../images/home/{{special.Image}}" alt = "Specialty">
+                    <p class="food-name">{{special.Name}}</p>
+                </a>
+            </div>
+        {%endfor%}
+    </div>
+        
+        <div id = "reviews">
+            {%for review in reviews%}
+            <div id = "review{{review.id}}">
+                <span class = "line-item">{{review.reviewMessage}}</span>
+                <span class = "line-item item-weight"> - {{review.reviewName}} </span>
+                <span class = "line-item">
+                    {%for i in range(1,review.reviewStars)%}
+                    <i class="material-icons">star</i>
+                    {%endfor%}
+                </span>
+            </div>
+            {%endfor%}
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,204 @@
+﻿body,html{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: table;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+}
+.login{
+    display:table-cell;
+    vertical-align: middle;
+    background-color:#391B0A;
+}
+.login input{
+    background-color: #e7e5e5;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+}
+
+.center {
+    display: table;
+    margin: auto;
+    border: 1px solid black;
+    padding: 4%;
+    background-color: #FFFFFF;
+    text-align: center;
+}
+
+#search{
+    width:80px;
+    height:30px;
+}
+
+.sidenav {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #391B0A;
+    overflow-x: hidden;
+    padding-top: 0px;
+}
+
+.sidenav a {
+    padding: 6px 6px 6px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #94918F;
+    display: block;
+}
+
+.sidenav p{
+    border:0;
+    margin: 20px 0px 0px 0px;
+    padding: 6px 6px 6px 32px;
+    text-decoration: none;
+    background-color: #6C3312;
+    font-size: 25px;
+    color: white;
+    display: block;
+}
+
+.sidenav .current{
+    border:0;
+    margin:0;
+    padding: 6px 6px 6px 32px;
+    text-decoration: none;
+    background-color: #E67027;
+    font-size: 25px;
+    color: white;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+    background-color: #E67027;
+}
+
+.sidenav img{
+    width:150px;
+    height:150px;
+    padding:20px 50px 0px 50px;
+}
+
+.sidenav .logout_button{
+    position: absolute;
+    width:100%;
+    bottom: 0;
+    border:0;
+    margin:0px 0px 20px 0px;
+    padding: 0;
+    background-color: #6C3312;
+}
+
+.sidenav input:hover{
+    color: white
+}
+
+.sidenav input{
+    border:0;
+    margin:0;
+    padding: 6px 0px 6px 0px;
+    background-color: #6C3312;
+    text-decoration: none;
+    font-size: 25px;
+    color: #94918F;
+    width: 100%;
+}
+
+.main {
+    margin-left: 250px; /* Same as the width of the sidenav */
+    padding:30px;
+}
+
+.main textarea{
+    resize: none;
+}
+
+.collapsible {
+    background-color: #6C3312;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+  
+.active, .collapsible:hover {
+    background-color: #E67027;
+}
+  
+.collapsible:after {
+    content: '\002B';
+    color: white;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+#menuEdit:after {
+    content: normal;
+}
+  
+.active:after {
+    content: "\2212";
+}
+  
+.content {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+}
+
+.top_content{
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttons_manager{
+    padding-top: 15px
+}
+
+.buttons_manager .add_category{
+    background-color: green;
+    border-radius: 8px;
+    border: 0px;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.change_form .change, .change{
+    background-color:#E67027;
+    color: white;
+    padding: 8px;
+    text-align: center;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+input{
+    margin: 3px;
+}
+
+#welcomeMessagePreviewButtons, #staffPreviewButtons{
+    padding-top: 5px;
+    text-align: center;
+}
+#welcomeMessagePreviewButtons form, #staffPreviewButtons form{
+    display: inline;
+}

@@ -1,0 +1,21 @@
+{% extends "admin_layout.html" %}
+{% block style %}
+<title>Admin - Login</title>         
+{% endblock %}
+
+
+{% block content %}
+    <body class="login">
+        <div class="center">
+            <img src='logo.jpg' style="padding-bottom:10px">
+            <form action = "{{action}}" method = "POST">   
+                <p>Username<br /></p>
+                <input type = "text" name = "username"/>     
+                <br/><br/>
+                <p>Password <br /></p>
+                <input type = "password" name = "password"/> 
+                <br/><br/><br/>
+                <input type = "submit" value = "Log In" id = "search"/>
+            </form>
+        </div>
+{% endblock %}

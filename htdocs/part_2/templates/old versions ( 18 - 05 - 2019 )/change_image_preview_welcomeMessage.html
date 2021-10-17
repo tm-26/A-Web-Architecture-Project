@@ -1,0 +1,73 @@
+{% extends "admin_layout.html" %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css" media="screen" href="../../slideAndMenuStyle.css">
+<link rel="stylesheet" type="text/css" media="screen" href="../admin.css"> 
+
+<title>Jack's Eat House</title>
+{% endblock %}
+
+{% block sidenav %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> <!--To import jquery-->
+<script>
+$(document).ready(function(){
+      $("#welcome").addClass("current"); //To make the css style apply to the current section by adding class 'current' to it
+  });
+
+</script>
+    {% include 'admin_sidenav.html'%}
+{% endblock %}
+
+{% block content%}
+<style>
+.button{
+    background-color:#E67027;
+    color: white;
+    padding: 8px;
+    text-align: center;
+    font-size: 13px;
+    cursor: pointer;
+}
+</style>
+<div id="main" class ="main">
+<div id="slideshow">
+    <img class="slides" src="../../images/general/salad.jpg">
+    <img class="slides" src="../../images/general/chipdip.jpeg">
+    <img class="slides" src="../../images/general/pizza.jpg">
+
+    <div id = "slideshowText">
+        <h1>Welcome to Jack's Eat House!</h1>
+        <h2>Fine cuisine on our premises and delivered to your door</h2>
+    </div>
+</div>
+<form action="change_image_preview_welcomeMessage.php" method="post">
+        <input class = "button" type="submit" name="confirm" id = "confirm" value="Submit" style = "float: left ; margin-top: 3px"/>
+</form>
+    <form action="admin_welcome.php">
+        <input class = "button" type="submit" value="Cancel" style = "float: right "/>
+    </form>
+</div>
+<script>
+
+var currImage = 0;
+    slideshowSwitch();
+    
+function slideshowSwitch(){
+    var x = document.getElementsByClassName("slides");
+    for (var i = 0; i < x.length; i++){
+        x[i].style.display = "none"; // all slideshow images are set to display: none 
+    }
+    currImage++;
+    // if currImage is greater than the number of slideshow images, set currImage to 1 i.e. the first slideshow
+    if (currImage > x.length){
+        currImage = 1
+    }
+    /*  since currImage has to be incremented and the slideshow pictures are x[0], x[1] and x[2],
+        x[currImage-1] below is written to accomodate this */
+    x[currImage-1].style.display = "block";  
+    setTimeout(slideshowSwitch, 5000); // calls slideshowSwitch() again after 5 seconds
+}
+</script>
+
+
+{% endblock %}

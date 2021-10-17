@@ -1,0 +1,126 @@
+﻿{% extends "layout.html" %}
+
+{% block style %}
+	<title>Contact Us</title>
+	<link rel="stylesheet" type="text/css" media="screen" href="../contact_us/contactStyle.css">
+{% endblock %}
+	
+{% block menu %}
+    {% include 'slideAndMenu.html' %}
+{% endblock %}
+	
+{% block content%}
+	<div id = "contactPage">
+		<div class = "contactDetails_all">
+			{%for detail in contactDetails%}
+			<div class = "opHours">
+				<i class="material-icons">schedule</i> 
+				<h2 class = "title1">Opening Hours</h2>
+				<!--due to contactStyle.css, the below p keeps its format-->
+				<p id = "info1">{{detail.openingHours}}</p>
+			</div>
+			<div class = "addressDetails">
+				<i class="material-icons">room</i> 
+				<h2 class = "title2">Address</h2>
+				<!--due to contactStyle.css, the below p keeps its format-->
+				<p id = "info2">{{detail.address}}</p>
+			</div>
+			<div class = "contactInfo">
+				<i class="material-icons">perm_phone_msg</i> 
+				<h2 class = "title3">Contact Details</h2>
+				<!--due to contactStyle.css, the below p keeps its format-->
+				<p id = "info3">Telephone:<br>{{detail.telephone}}<br>
+						Mobile:<br>{{detail.mobileNumber}}<br>
+						Email:<br>{{detail.email}}<br>
+				</p>
+			</div>
+			{%endfor%}
+		</div>
+
+		<div id = "form-switch-buttons">
+			<button id = "booking-button" onclick = "formSwitchToBooking()">Booking</button>
+			<button id = "query-button" onclick = "formSwitchToQuery()">Query</button>
+		</div>
+
+		<div id = "booking">
+			<form action="send_email.php" method="post" autocomplete="on">
+				<input type="hidden" name="request" value="booking">
+				<div  id = "booking-table">
+					<div class = "table-row">
+						<div class = "input-cell">Personal Details:</div>
+						<label class = "label-cell" for="first-name"></label>
+						<input class = "input-cell" type="text" name="first-name" placeholder="First Name:" maxlength = "40" required>
+						<label class = "label-cell" for="last-name"></label>
+						<input class = "input-cell" type="text" name="last-name" placeholder="Last name:" maxlength = "40" required>
+					</div>
+					<div class = "table-row">
+						<div class = "input-cell"></div>
+						<label class = "label-cell" for="email-address"></label>
+						<input class = "input-cell" type="email" name="email-address" placeholder="Email address:" required>
+						<label class = "label-cell" for="phone-number"></label>
+						<input class = "input-cell" type="tel" name="phone-number" placeholder="Phone number:" required>
+					</div>
+					<div class = "table-row">
+						<div class = "input-cell">Date and Time:</div>
+						<label class = "label-cell" for="booking-date" ></label>
+						<input class = "input-cell" id = "form-date" onfocus="dateRange()" type="date" name="booking-date" required>
+						<label class = "label-cell" for="booking-time" step = "30"></label>
+						<input class = "input-cell" id = "form-time" min = "19:00" max = "22:00" type="time" name="booking-time" required>
+					</div>
+					<div class="table-row">
+						<div class = "input-cell"></div>
+						<label class = "label-cell" for="num-of-people"></label>
+						<input class = "input-cell" id = "tester" type="number" name="num-of-people" min="1" max="30" placeholder="Number of people:" required>
+						<div class = "input-cell"></div>
+						<div class = "submit-reset" id = "booking-submit-reset">
+							<input type="submit" value="Book">
+							<input type="reset" value="Reset">
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+	<div id = "query">
+		<form action="send_email.php" method="post" autocomplete="on">
+			<div id = "query-table">
+				<div class = "table-row">
+					<label class = "label-cell" for = "first-name"></label>
+					<input class = "input-cell" type = "text" name = "first-name" placeholder = "First Name:" maxlength = "40" required>
+					<label class = "label-cell" for ="last-name"></label>
+					<input class = "input-cell" type = "text" name = "last-name" placeholder = "Last name:" maxlength = "40" required>
+				</div>
+
+				<div class = "table-row">
+					<label class = "label-cell" for = "email-address"></label>
+					<input class = "input-cell" type="email" name="email-address" placeholder="Email address:" required>
+					<label class = "label-cell" for = "phone-number"></label>
+					<input class = "input-cell" type="tel" name="phone-number" placeholder="Phone number:" required>
+				</div>
+			</div>
+
+			<div class = "block-div">
+				<label for = "query-type"></label>
+				<select name = "request">
+					<option value = "question" selected>Question</option>
+					<option value = "complaint">Complaint</option>
+				</select>
+			</div>
+
+			<div class = "block-div">
+				<label for = "query-subject"></label>
+				<textarea name = "subject" placeholder = "Subject:" required></textarea>
+			</div>
+					
+			<div class = "submit-reset">
+				<input type = "submit" value = "Send">
+				<input type = "reset" value = "Reset">
+			</div>
+				
+		</form>
+	</div>
+</div>
+
+<script src="contactScript.js"></script>
+{% endblock %}
+	

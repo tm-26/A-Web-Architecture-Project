@@ -1,0 +1,187 @@
+{% extends "admin_layout.html" %}
+
+{% block style %}
+<title>Admin - Add Dish</title>
+{% endblock %}
+
+{% block sidenav %}
+    {% include 'admin_sidenav.html'%}
+{% endblock %}
+
+{% block content %}
+    <div class="main">
+{%if change == 'add' %}
+        <table>
+            <h2>New Dish</h2>
+            <form action = "../dishes/change_image_preview.php" method = "POST" class="change_form" enctype="multipart/form-data">
+                <input type="hidden" name="effect" value="add">
+                <tr>
+                    <td>
+                    Item Category: 
+                    </td>
+                    <td>
+                    <select name="item_category" value = "">
+                    {%for category in categories%}
+                        <option value="{{category.category_id}}">{{category.category_name}}</option> 
+                    {%endfor%}                                     
+                    </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Item Name: 
+                    </td>
+                    <td>
+                        <input type="text" name="item_name" pattern="[A-Za-z\s]+{1,}" title="No special characters allowed" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Item Description: </td>
+                    <td>
+                        <input type="text" name="item_description" pattern="[A-Za-z\s]+{1,}" title="No special characters allowed" required>
+                    </td>
+                </tr>
+                <tr>     
+                    <td>
+                    Item Price: 
+                    </td>
+                    <td>
+                        <input type="number" placeholder="0" required name="item_price" value = "0.00" min="0.01"  step="0.01" pattern="^\d+(?:\.\d{1,2})?$" required> <!-- Pattern is to validate input up to 2 dp -->
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Item Image: 
+                    </td>
+                    <td>
+                        <input type="file" name= "item_image" onchange="readURL(this)" id = "item_image"><br>
+                        <input type="hidden" name="item_id" value="{{item_id}}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img id="preview" src="../../images/general/letter-j.png" alt="your image" width='0px' height='0px'/>
+                    <script>
+                        function readURL(input) {
+                            if (input.files && input.files[0]) {
+                                var reader = new FileReader();
+                
+                                reader.onload = function (e) {
+                                    $('#preview')
+                                        .attr('src', e.target.result)
+                                        .attr('width','250px')
+                                        .attr('height','250px')
+                                };
+                
+                                reader.readAsDataURL(input.files[0]);
+                            }
+                        }   
+                    </script>
+                </td>
+            </tr>
+                <tr>
+                    <td>
+                        <input class= "change" type="submit" value="Preview Changes"/>
+                    </td>
+                </tr>
+            </form>
+        </table>
+        {%elseif change == 'edit' %}
+           
+                
+        <h2>Editing Dish: {{item_name}}</h2>
+        <table>
+        <form action = "../dishes/change_image_preview.php" method = "POST" class="change_form" enctype="multipart/form-data">
+            <input type="hidden" name="effect" value="edit">
+            <input type="hidden" name="previous_name" value="{{item_name}}">
+            <tr>
+                <td>
+                    Item Category: 
+                </td>
+                <td>
+                    <select name="item_category" value = "{{item_category}}">
+                    {%for category in categories%}
+                        {%if category.category_name == item_category%}
+                            
+                            <option value="{{category.category_id}}" selected>{{item_category}}</option>
+                        {%else%}
+                            <option value="{{category.category_id}}">{{category.category_name}}</option>
+                        {%endif%}
+                    {%endfor%}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Item Name:
+                </td>
+                <td>
+                    <input type="text" name="item_name" pattern="[A-Za-z\s]+{1,}" title="No special characters allowed" value="{{item_name}}" required><!-- Pattern is to allow only lower and upper case letters, minimum of 1 letter -->
+                </td>
+            </tr>
+           
+            <tr>
+                <td>
+                    Item Description: 
+                </td>
+                <td>
+                    <input type="text" name="item_description" pattern="[A-Za-z\s]+{1,}" title="No special characters allowed" value="{{item_description}}" required>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Item Price: 
+                </td>
+                <td>
+                    <input type="number" placeholder="0" required name="item_price" min="0" value="{{item_price}}" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" > <!-- Pattern is to validate input up to 2 dp -->
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                Item Image: 
+                </td>
+                <td>
+                <input type="file" name= "item_image" onchange="readURL(this)" id = "item_image"><br>
+                <input type="hidden" name="item_id" value="{{item_id}}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img id="preview" src="../../images/dishes/{{item_image}}" alt="your image" width='250px' height='250px'/>
+                    <script>
+                        function readURL(input) {
+                            if (input.files && input.files[0]) {
+                                var reader = new FileReader();
+                
+                                reader.onload = function (e) {
+                                    $('#preview')
+                                        .attr('src', e.target.result)
+                                };
+                
+                                reader.readAsDataURL(input.files[0]);
+                            }
+                        }   
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="change" type="submit" style="margin-top:20px" value="Preview Changes"/>
+                </td>   
+            </tr>
+        </form>
+        </table>
+        
+        {%endif%}
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> <!--To import jquery-->
+    <script>
+        $(document).ready(function(){
+            $("#dishes").addClass("current"); //To make the css style apply to the current section by adding class 'current' to it
+        });
+    </script>
+{%endblock%}

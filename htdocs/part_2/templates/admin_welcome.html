@@ -1,0 +1,156 @@
+{% extends "admin_layout.html" %}
+
+{% block style %}
+<title>Admin - Welcome</title>
+{% endblock %}
+
+
+{% block sidenav %}
+    {% include 'admin_sidenav.html'%}
+{% endblock %}
+
+{% block content %}
+
+    <div class="main">
+        <div class="top_content">
+            <h1>Welcome Page</h1>
+        </div>
+        
+        <div id="main_content">
+            <h2>Slideshow Message</h2>
+            {%for i in range (0,1)%}
+                <div class="welcome">
+                    <button class = "collapsible">
+                        {%if i == 0%} <!--To get whether primary or sub title-->
+                            Primary Title
+                        {%else%}
+                            Subtitle
+                        {%endif%}
+                    </button>
+
+                    <div class="content">
+                        <p>
+                            <b>
+                                Welcome Message: 
+                            </b>
+                            {%if i == 0 %}
+                                {{welcomes.welcomeTitle}}
+                            {%else%}
+                                {{welcomes.welcomeMessage}}
+                            {%endif%}
+                        </p>
+                        <table>
+                            <tr>
+                                <td>
+                                    <form class="change_form" padding="0px 30px 10px 10px" method="POST" action="admin_welcome_edit_welcomemessage.php">
+                                        {%if i == 0 %}
+                                            <input type="hidden" name="which" value="title">
+                                        {%else%}
+                                            <input type="hidden" name="which" value="message">
+                                        {%endif%}
+                                            <input type="hidden" name="welcomeTitle" value="{{welcomes.welcomeTitle}}">
+                                            <input type="hidden" name="welcomeMessage" value="{{welcomes.welcomeMessage}}">
+                                            <input type="hidden" name="id" value="{{welcomes.id}}">
+                                            <input class="change" type="submit" value="Edit">
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            {%endfor%}
+             
+            <h2>Special Dishes</h2>
+            {%for dish in specials%}
+                <div class="welcome2">
+                    
+                    <button class = "collapsible">
+                        {{dish.Name}}
+                    </button>
+
+                    <div class="content">
+                        <p>
+                            <b>
+                                Dish: 
+                            </b>
+                            {{dish.Name}}
+                        </p>
+                        <img src="../../images/home/{{dish.Image}}" width="250px" height="250px">
+                        <table>
+                            <tr>
+                                <td>
+                                    <form class="change_form" padding="0px 30px 10px 10px" method="POST" action="admin_welcome_edit_specials.php">
+                                            <input type="hidden" name="change" value="edit">
+                                            <input type="hidden" name="id" value="{{dish.id}}">
+                                            <input type="hidden" name="Image" value="{{dish.Image}}">
+                                            <input type="hidden" name="Name" value="{{dish.Name}}">
+                                            <input class="change" type="submit" value="Edit">
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            {%endfor%}
+
+            <h2>Reviews</h2>
+            {%for review in reviews%}
+                <div class="welcome1">
+                    <button class = "collapsible">
+                        {%if review.id == 1%}
+                            Left
+                        {%endif%}
+                        {%if review.id == 2%}
+                            Middle
+                        {%endif%}
+                        {%if review.id == 3%}
+                            Right
+                        {%endif%}
+                    </button>
+                    <div class="content">
+                        <p>
+                            <b>
+                                Reviewer: 
+                            </b>
+                            {{review.reviewName}}
+                        </p>
+                        <p>
+                            <b>
+                                Number Of Stars: 
+                            </b>
+                            {{review.reviewStars}}
+                        </p>
+                        <p>
+                            <b>
+                                Message: 
+                            </b>
+                            {{review.reviewMessage}}
+                        </p>
+                        <table>
+                            <tr>
+                                <td>
+                                    <form class="change_form" padding="0px 30px 10px 10px" method="POST" action="admin_welcome_edit_review.php">
+                                        <input type="hidden" name="id" value="{{review.id}}">
+                                        <input type="hidden" name="reviewName" value="{{review.reviewName}}">
+                                        <input type="hidden" name="reviewStars" value="{{review.reviewStars}}">
+                                        <input type="hidden" name="reviewMessage" value="{{review.reviewMessage}}">
+                                        <input type="hidden" name="change" value="edit">
+                                        <input class="change" type="submit" value="Edit">
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            {%endfor%}
+        </div>
+        
+        <script src="../itemExpand.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> <!--To import jquery-->
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#welcome").addClass("current"); //To make the css style apply to the current section by adding class current to it
+            });
+         </script>
+    </div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "admin_layout.html" %}
+{% block style %}
+<title>Admin - Dishes</title>
+{% endblock %}
+
+{% block sidenav %}
+    {% include 'admin_sidenav.html'%}
+{% endblock %}
+
+{% block content %}
+    <div class="main">
+        <div class="top_content">
+            <h1>Dishes</h1>
+            <form action = "admin_dishes_new.php" method = "POST" class="buttons_manager">
+                <input type="hidden" name="change" value="add">
+                <input class="add_category" type="submit" value="Add New Dish"/><br/>
+            </form>
+        </div>
+        
+        <div id="main_content">
+            {%for category in categories%}
+                {%for item in items if item.category_id == category.category_id%}
+                    {%if loop.first%}
+                        <h2>{{category.category_name}}</h2>
+                    {%endif%}
+                <div class = 'dish'>
+                    <button class = 'collapsible'>
+                        {{item.item_name}}
+                    </button>
+                    <div class="content">
+                        {% for item_details in item_desc if item.item_id == item_details.item_id%}
+                            <p><strong>Item name:</strong> {{item.item_name}}</p>
+                            <p><strong>Item description:</strong> {{item_details.description}}</p>
+                            <p><strong>Item price:</strong> {{item_details.price}}</p>                        
+                            <p><strong>Item category:</strong> {{category.category_name}}</p>
+                            <img src="../../images/dishes/{{item_details.image_location}}" width="250px" height="250px" >
+                            <table>
+                                <tr>
+                                    <td>
+                                        <form class="change_form" style="padding:0px 30px 10px 10px" action="../dishes/admin_dishes_new.php" method="POST">
+                                            <input type="hidden" name="change" value="edit">
+                                            <input type="hidden" name="item_category" value="{{category.category_name}}">
+                                            <input type="hidden" name="item_name" value="{{item.item_name}}">
+                                            <input type="hidden" name="item_description" value="{{item_details.description}}">
+                                            <input type="hidden" name="item_price" value="{{item_details.price}}">
+                                            <input type="hidden" name="item_id" value="{{item.item_id}}">
+                                            <input type="hidden" name="item_image" value="{{item_details.image_location}}">
+                                            <input class="change" type="submit" value="Edit">
+            
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form class="change_form" onsubmit="return confirm('Are you sure you want to remove this dish?');" style="padding:0px 30px 10px 10px" action='' method="post">
+                                            <input type="hidden" name="change" value="remove">
+                                            <input type="hidden" name="item_id" value="{{item.item_id}}">
+                                            <input class="change" type="submit" value="Remove">
+                                        </form>
+                                    </td>
+                                </tr>
+                            </table>
+                        {%endfor%}
+                    </div>
+                </div>                    
+                {%endfor%}
+            {%endfor%}
+        </div>
+    </div>
+
+    <script src="../itemExpand.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> <!--To import jquery-->
+    <script>
+        $(document).ready(function(){
+            $("#dishes").addClass("current"); //To make the css style apply to the current section by adding class current to it
+        });
+    </script>
+{% endblock %}

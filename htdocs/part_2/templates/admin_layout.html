@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+            <meta charset="UTF-8">
+            <link rel="stylesheet" type="text/css" media="screen" href="http://localhost/part_2/admin/admin.css">  <!--Absolute path since not every admin page is within a folder (eg login)-->
+            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+            <noscript>
+                <meta http-equiv='refresh' content='0; URL=http://localhost/part_2/templates/noJavaScript.html'>
+            </noscript>
+            {% block style %}
+            {% endblock %}
+    </head>
+    <body>
+        {% block sidenav %}
+        {% endblock %}
+
+        {% block content %}
+        {% endblock %}
+        
+    </body>
+</html>

@@ -1,0 +1,62 @@
+{% extends "admin_layout.html" %}
+
+{% block style %}
+<title>Admin - Categories</title>
+{% endblock %}
+
+{% block sidenav %}
+    {% include 'admin_sidenav.html'%}
+{% endblock %}
+
+{% block content %}
+    <div class="main">
+
+        <div class="top_content">
+            <h1>Categories</h1>
+            <form action = "../categories/admin_categories_new.php" method = "POST" class="buttons_manager">
+                <input type="hidden" name="change" value="add">
+                <input class="add_category" type="submit" value="Add Category"/><br/>
+            </form>
+        </div>
+
+        <div id="main_content">
+            {%for eachCategory in categories%}
+            <div class = 'category'>
+                <button class = 'collapsible'>
+                    {{eachCategory.category_name}}
+                </button>
+                <div class="content">
+                    <p><strong>Category name:</strong> {{eachCategory.category_name}}</p>
+                    <table>
+                        <tr>
+                            <td>
+                                <form class="change_form" style="padding:0px 30px 10px 10px" action="../categories/admin_categories_new.php" method="POST">
+                                    <input type="hidden" name="change" value="edit">
+                                    <input type="hidden" name="category_name" value="{{eachCategory.category_name}}">
+                                    <input class="change" type="submit" value="Edit">
+                                </form>
+                            </td>
+                            <td>
+                                <form class="change_form" onsubmit="return confirm('Are you sure you want to remove this category? Dishes that belong to the category will have no category and will not be shown on the menu.');" style="padding:0px 30px 10px 10px" action='' method="post">
+                                    <input type="hidden" name="change" value="remove">
+                                    <input type="hidden" name="category_name" value="{{eachCategory.category_name}}">
+                                    <input class="change" type="submit" value="Remove">
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+
+    <script src="../itemExpand.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> <!--To import jquery-->
+    <script>
+        $(document).ready(function(){
+            $("#categories").addClass("current"); //To make the css style apply to the current section by adding class current to it
+        });
+    </script> 
+    
+{% endblock %}

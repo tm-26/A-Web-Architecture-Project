@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+    {% block style %}
+    <title>Our Menu</title>
+    <link rel="stylesheet" type="text/css" href="menu.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    {% endblock %}
+    {% block menu %}
+        {% include 'slideAndMenu.html' %}
+    {% endblock %}
+    {% block content%}
+
+    <div class = "menu">
+        {% set noFavs = true %}
+        <form class="email_form" action="" method="POST" id="sendFavourites" style="display:none; text-align:right; padding-top:20px; padding-right:20px">
+            <input class="email_input" name="email" type="email" placeholder="Enter email:" required>
+            <input class="email_image" type="image" value="Email favourites" src="../images/favourites/email.png" alt="Send Email"> 
+            <p>{{email}}</p>
+        </form>
+            
+        <div class = "center">
+        {% for category in categories if category.category_name %} <!-- For each category if name not null-->
+            <!--Check if category name is not empty-->
+                {% for item in items if item.category_id == category.category_id and item.item_id in favourites %}
+                    {%if loop.first%} <!--To print category names if there is atleast one item-->
+                        {% set noFavs = false %}
+                        <script>
+                            document.getElementById("sendFavourites").style.display="block";
+                        </script>
+                        <h1>{{category.category_name}}</h1>
+                    {%endif%} 
+                    <table class="collapsible_table">
+                        <tr>
+                            <td class="collapsible_row">
+                                <button class="collapsible">
+                                    <p class="circle">€ {{item.price}}</p> <!--Output price -->
+                                    <h3>{{item.item_name}}</h3> <!-- Output name -->                       
+                                </button>
+                            </td>
+                            <td>
+                                {%if item.item_id in favourites%} <!--Check if current item is in the favourites section-->  
+                                    <form id="favourites{{item.item_id}}" action="">
+                                        <input class="favourites_heart" id="favourites_heart{{item.item_id}}" src='../images/favourites/heart_filled.png' type="image" width="60" height="60">
+                                    </form>
+                                {%else%}
+                                    <form id="favourites{{item.item_id}}" action="">
+                                        <input class="favourites_heart" id="favourites_heart{{item.item_id}}" src='../images/favourites/heart_empty.png' type="image" width="60" height="60">
+                                    </form>
+                                {%endif%}
+                                <script type="text/javascript">
+                                    $('#favourites{{item.item_id}}').click(function(e) {
+                                        e.preventDefault();
+                                        var heart = document.getElementById("favourites_heart{{item.item_id}}");
+                                        if(heart.src == 'http://localhost/part_2/images/favourites/heart_empty.png')
+                                        {
+                                            $.ajax({
+                                                url: 'menu_update.php',
+                                                type: 'POST',
+                                                data: {
+                                                    item: '{{item.item_id}}',
+                                                    change: 'add'
+                                                }             
+                                            });
+                                            heart.src="../images/favourites/heart_filled.png";
+                                        }
+                                        else
+                                        {
+                                            $.ajax({
+                                                url: 'menu_update.php',
+                                                type: 'POST',
+                                                data: {
+                                                    item: '{{item.item_id}}',
+                                                    change: 'remove'
+                                                }             
+                                            });
+                                            heart.src="../images/favourites/heart_empty.png";
+
+                                        }
+                                    });
+                                </script>
+                            </td>
+                        </tr>   
+                    </table>
+                    <div class="content">
+                        <img src = "../images/dishes/{{item.image_location}}">  <!-- OUTPUT PICTURE -->
+                        <h4>
+                            {{item.description}} 
+                        </h4>         
+                    </div>
+                {%endfor%}
+            {%endfor%} 
+
+            {% if noFavs == true %}
+                    <h1>You don't have any saved favourites</h1>
+                    <img src="../images/favourites/broken_heart.png">
+                    <h2>Add favourites by clicking on the heart next to the dishes on the <a href="../menu/menu.php">Menu</a>!</h2>
+            {% endif%}      
+            <script src = "menuScript.js"></script>
+        </div>
+    </div>
+    {% endblock %}

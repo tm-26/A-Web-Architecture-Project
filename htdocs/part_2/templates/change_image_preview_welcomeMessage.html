@@ -1,0 +1,39 @@
+{% extends "admin_layout.html" %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css" media="screen" href="../../slideAndMenuStyle.css">
+<link rel="stylesheet" type="text/css" media="screen" href="../admin.css"> 
+<title>Admin - Welcome Message Preview</title>
+{% endblock %}
+
+{% block sidenav %}
+    {% include 'admin_sidenav.html'%}
+{% endblock %}
+
+{% block content%}
+
+<div class ="main">
+    <div id="slideshow">
+        <img class="slides" src="../../images/general/salad.jpg">
+        <img class="slides" src="../../images/general/chipdip.jpeg">
+        <img class="slides" src="../../images/general/pizza.jpg">
+
+        <div id = "slideshowText">
+            <h1>{{welcomeTitle}}</h1>
+            <h2>{{welcomeMessage}}</h2>
+        </div>
+    </div>
+    <div id = "welcomeMessagePreviewButtons">
+        <form action="change_image_preview_welcomeMessage.php" method="POST">
+            <input class = "change" type="submit" name="confirm" value="Submit"/>
+        </form>
+        <form action="admin_welcome.php">
+            <input class = "change" type="submit" value="Cancel"/>
+        </form>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> <!--To import jquery-->
+<script src="../../slideAndMenuScript.js"></script>
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block style %}
+    <title>About</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="../about_us/aboutStyle.css">
+{% endblock %}
+
+{% block menu %}
+    {% include 'slideAndMenu.html' %}
+{% endblock %}
+
+{% block content%}
+
+    <div class = "aboutPage">
+        <h1>About Us</h1>
+        <table>
+            <tr>
+                <th>
+                    <p>
+                        
+                        Welcome to Jack’s Eat House, a renewed Cottage style restaurant in the outskirts of Qrendi. A small village which incorporates two of the most important Neolithic temples in Malta, Mnajdra and Ħaġar Qim. This village takes you to a perfect starting point for a journey back in time. 
+                        
+                        Here at Jack’s Eat House one can be delighted with some of the exquisite traditional Maltese cuisine blended with other Mediterranean dishes. 
+
+                        We pride ourselves in using fresh and genuine ingredients and offer our esteemed customers an excellent service.
+                    <p> 
+                </th>
+                <th>
+                    <div class = "image-box">
+                        <img class = "image" src="../images/staff/about1.jpg" alt="aboutImage"> 
+                    </div>                
+                </th>
+            </tr>
+        </table>
+        
+        <h1 id = "staffHeader">Our Staff</h1>
+
+        <table>
+            {% for person in staff %}
+                {% if loop.index is divisible by(2) %}
+                <tr>
+                    <th>                            
+                        <h2>{{person.employee_name}}</h2>
+                        <h3>{{person.employee_position}}</h3>
+                        <p>
+                            {{person.employee_description}}
+                        <p>
+                    </th>
+                    <th>
+                        <div class="image-box">
+                            <img class = "image" src="../images/staff/{{person.image_location}}" alt="StaffImageRight"> 
+                        </div>
+                    </th>
+                </tr>
+                {%else%}
+                <tr>
+                    <th>
+                        <div class="image-box">
+                            <img class = "image" src="../images/staff/{{person.image_location}}" alt="staffImageLeft">
+                        </div>
+                    </th>
+                    <th>
+                        <h2>{{person.employee_name}}</h2>
+                        <h3>{{person.employee_position}}</h3>
+                        <p>
+                            {{person.employee_description}}
+                        </p>
+                    </th>
+                </tr>
+                {%endif%}
+            {%endfor%}
+        </table>
+    </div>
+{% endblock %}

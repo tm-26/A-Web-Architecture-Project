@@ -1,0 +1,42 @@
+{% extends "admin_layout.html" %}
+
+{% block style %}
+<title>Admin - Add Category</title>
+{% endblock %}
+
+{% block sidenav %}
+    {% include 'admin_sidenav.html'%}
+{% endblock %}
+
+{% block content %}
+
+    <div class="main">
+        {%if change == 'add' %}
+            <h2>New Category</h2>
+            <form action = "" method = "POST" class="change_form">
+                <input type="hidden" name="effect" value="add">
+                Category Name:
+                <input type="text" name="category_name" required>
+                <br>
+                <input class= "change" type="submit" style="margin-top:20px" value="Save Changes"/><br/>
+            </form>
+
+        {%elseif change == 'edit' %}
+            <h2>Editing Category: {{category_name}}</h2>
+                <form action = "" method = "POST" class="change_form">
+                    <input type="hidden" name="effect" value="edit">
+                    <input type="hidden" name="previous_name" value="{{category_name}}">
+                    Category Name: 
+                    <input type="text" name="category_name" value="{{category_name}}" required>
+                    <br>
+                    <input class="change" type="submit" style="margin-top:20px" value="Save Changes"/><br/>
+                </form>
+        {%endif%}
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> <!--To import jquery-->
+    <script>
+        $(document).ready(function(){
+            $("#categories").addClass("current"); //To make the css style apply to the current section by adding class 'current' to it
+        });
+    </script>
+{%endblock%}

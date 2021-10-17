@@ -1,0 +1,97 @@
+{% extends "admin_layout.html" %}
+
+{% block style %}
+<title>Admin - Add Staff</title>
+{% endblock %}
+
+{% block sidenav %}
+    {% include 'admin_sidenav.html'%}
+{% endblock %}
+
+{% block content %}
+    <div class="main">
+        {%if change == 'add' %}
+            <h2>New Employee</h2>
+            <form action = "../staff/change_image_preview.php" method = "POST" class="change_form" enctype="multipart/form-data">
+                <input type="hidden" name="effect" value="add">
+                Name: 
+                <input type="text" name="employee_name" required>
+                <br>
+                Position: 
+                <input type="text" name="employee_position" value=""required>
+                <br>
+                <p>Description:</p>
+                <textarea name="employee_description" rows="10" cols="30" value="" required></textarea>                  
+                <br>
+                Employee Image: 
+                <input type="file" name= "employee_image" onchange="readURL(this)" id = "employee_image" required>
+                <div class="toBreak"></div>
+                
+                <img id="preview" src="../../images/general/letter-j.png" alt="your image" width='0px' height='0px'/>
+                        <script>
+                        function readURL(input) {
+                            if (input.files && input.files[0]) {
+                                var reader = new FileReader();
+                
+                                reader.onload = function (e) {
+                                    $('#preview')
+                                        .attr('src', e.target.result)
+                                        .attr('width','250px')
+                                        .attr('height','250px');
+                                        document.getElementsByClassName("toBreak").innerHTML += "<br>";
+                                };
+                
+                                reader.readAsDataURL(input.files[0]);
+                            }
+                        }   
+                    </script>
+                <div class="toBreak"></div>
+                <input class= "change" type="submit"  value="Save Changes"/><br/>
+            </form>
+
+        {%elseif change == 'edit' %}
+                
+            <h2>Editing Employee: {{employee_name}}</h2>
+                
+            <form action = "../staff/change_image_preview.php" method = "POST" class="change_form" enctype="multipart/form-data">
+                <input type="hidden" name="effect" value="edit">
+                <input type="hidden" name="previous_name">
+                <input type="hidden" name="employee_id" value={{employee_id}}>
+                Name: 
+                <input type="text" name="employee_name" value="{{employee_name}}" required>
+                <br>
+                Position: 
+                <input type="text" name="employee_position" value="{{employee_position}}" required>
+                <p>Description:</p>
+                <textarea name="employee_description" rows="10" cols="30" required>{{employee_description}}</textarea>                  
+                <br><br>
+                Employee Image:
+                <input type="file" name= "employee_image" onchange="readURL(this)" id = "employee_image">
+                <br>
+                <img id="preview" src="../../images/staff/{{employee_image}}" alt="your image" width='250px' height='250px'/>
+                <script>
+                    function readURL(input) {
+                        if (input.files && input.files[0]) {
+                            var reader = new FileReader();
+            
+                            reader.onload = function (e) {
+                                $('#preview')
+                                    .attr('src', e.target.result)
+                            };
+            
+                            reader.readAsDataURL(input.files[0]);
+                        }
+                    }   
+                </script><br>
+                <input class="change" type="submit" style="margin-top:20px" value="Preview Changes"/>
+            </form>
+        {%endif%}
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> <!--To import jquery-->
+    <script>
+        $(document).ready(function(){
+            $("#staff").addClass("current"); //To make the css style apply to the current section by adding class current to it
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,71 @@
+/* styles for about page text */
+
+.aboutPage h1{
+    text-align: center;
+    text-decoration: none;
+}
+#staffHeader{
+    padding-top: 100px;
+}
+.aboutPage h2{
+    font-size: 28px;
+}
+.aboutPage h3{
+    font-size: 26px;
+}
+.aboutPage p{
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: normal;
+    white-space: pre-line;
+}
+
+/* styles related to the tables and their design */
+
+.aboutPage table{
+    width: 1000px;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+.aboutPage th{
+    text-align: left; /* will only affect text and not images */
+    width: 500px;
+    height: 450px;
+    box-sizing: border-box;
+    padding: 30px;
+}
+/* .image-box contains the staff pictures which can be scrolled when the browser window reaches a certain width */
+.image-box{
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.image-box > .image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.aboutPage tr:nth-child(odd){
+    background-color: burlywood;
+    border-color: burlywood;
+}
+
+
+/* styling in relation to window-resizing */ 
+  
+/* styling that only applies when the window width is 1000px or less*/
+@media only screen and (max-width: 1100px) {
+    .aboutPage table{ width:600px; }
+    .aboutPage th{ width: 300px; }
+}
+/* styling that only applies when the window width is 700px or less*/
+@media only screen and (max-width: 700px) {
+    .aboutPage table{ width:400px; }
+    .aboutPage th{ width: 200px; }
+}
+/* styling that only applies when the window width is 600px or less*/
+@media only screen and (max-width: 600px) {
+    .aboutPage table{ width:376px; }
+    .aboutPage th{ width: 188px; }
+}

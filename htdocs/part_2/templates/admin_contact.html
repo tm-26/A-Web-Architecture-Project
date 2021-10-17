@@ -1,0 +1,78 @@
+{% extends "admin_layout.html" %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css" href="../../contact_us/contactStyle.css">
+<title>Admin - Contact Us</title>
+{% endblock %}
+
+{% block sidenav %}
+    {% include 'admin_sidenav.html'%}
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <form action="admin_contact.php" method = "POST" class="change_form" enctype="multipart/form-data">
+    <h2> Edit Contact Details</h2>
+	    <div class = "contactDetails_all">
+                <div class = "opHours">
+                    <i class="material-icons">schedule</i> 
+                    {%for detail in contactDetails%}
+                    <h2 class = "title1">Opening Hours</h2>
+                        <div id = "infoEntry1">
+                            <textarea name="openingHours" rows="10" cols="34" id="openingHours">{{detail.openingHours}}</textarea>
+                        </div>       
+                </div>            
+                <div class = "addressDetails">
+                    <i class="material-icons">room</i> 
+                    <h2 class = "title2">Address</h2>
+                        <div id = "infoEntry2">
+                            <textarea name="address" rows="10" cols="34"id="address">{{detail.address}}</textarea>
+                        </div>      
+                </div>
+                <div class = "contactInfo">
+                    <i class="material-icons">perm_phone_msg</i>
+                    <h2 class = "title3">Contact Details</h2>
+                        <div id = "infoEntry3">
+                            <div class = "table-row">
+                                <p>Telephone:</p>
+                                <input type="text" name="telephone" id= "telephone" value="{{detail.telephone}}">
+                            </div>
+                            <div class = "table-row">
+                                <p>Mobile:</p>
+                                <input type="text" name="mobile" id ="mobile" value="{{detail.mobileNumber}}">
+                            </div>
+                            <div class = "table-row">
+                                <p>Email:</p>
+                                <input type="text" name="email" id="email" value="{{detail.email}}">
+                            </div>
+                        </div>
+                </div>
+        </div>
+
+        <div id = "contactEditAllButton">
+            <input class = "change form" type="submit" name="editAll" id="editAll" value="Edit All"/>
+            <input type="hidden" name="effect" value="editAll">
+        </div>
+
+        </form>
+        {% endfor %}
+        {%for email in emails%}
+        <div id = "emailChange">
+            <h2> Email</h2>
+            <form action="admin_contact.php" method = "POST" class="change_form" enctype="multipart/form-data">
+                Email to receive queries:
+                    <input type="text" name="email" id="email" value="{{email.email}}">
+                    <input class = "change form" type="submit" name="editEmail" id="editEmail" value="Edit Email"/>
+                    <input type="hidden" name="effect" value="editEmail">
+            </form>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> <!--To import jquery-->
+    <script>
+        $(document).ready(function(){
+            $("#contact").addClass("current"); //To make the css style apply to the current section by adding class current to it
+        });
+    </script>
+{% endblock %}

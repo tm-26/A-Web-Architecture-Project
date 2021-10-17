@@ -1,0 +1,41 @@
+{% extends "admin_layout.html" %}
+
+{% block style %}
+<title>Admin - Edit Welcome Message</title>
+{% endblock %}
+
+{% block sidenav %}
+    {% include 'admin_sidenav.html'%}
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <h2>Editing Slideshow Message</h2>
+            
+    <form action = "change_image_preview_welcomeMessage.php" method = "POST" class="change_form" enctype="multipart/form-data">
+        <input type="hidden" name="effect" value="edit">
+        <input type="hidden" name="previous_name">
+        {%if which == 'title'%}
+            <p>Welcome Title</p>
+            <textarea name="welcomeTitle" rows="10" cols="30">{{welcomeTitle}} </textarea>
+            <input type="hidden" name="welcomeMessage" value="{{welcomeMessage}}">
+        {%elseif which == 'message'%}
+            <p>Welcome Message:</p>
+            <textarea name="welcomeMessage" rows="10" cols="30">{{welcomeMessage}} </textarea>  
+            <input type="hidden" name="welcomeTitle" value="{{welcomeTitle}}">
+        {%endif%}   
+        <br>
+        <input type="hidden" name="id" value="{{id}}">
+        <input class= "change" type="submit" style="margin-top:20px" value="Preview Changes"/><br/>
+    </form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> <!--To import jquery-->
+<script>
+    $(document).ready(function(){
+        $("#welcome").addClass("current"); //To make the css style apply to the current section by adding class current to it
+    });
+</script>
+
+{% endblock %}
+

@@ -1,0 +1,68 @@
+{% extends "admin_layout.html" %}
+
+{% block style %}
+<title>Admin - Staff</title>
+{% endblock %}
+
+{% block sidenav %}
+    {% include 'admin_sidenav.html'%}
+{% endblock %}
+
+{% block content %}
+    <div class="main">
+        <div class="top_content">
+            <h1>Employees</h1>
+            <form action = "admin_staff_new.php" method = "POST" class="buttons_manager">
+                <input type="hidden" name="change" value="add">
+                <input class="add_category" type="submit" value="Add New Employee"/><br/>
+            </form>
+        </div>
+       
+        <div id="main_content">
+            {%for employee in staff%}
+                <div class = 'staff'>
+                    <button class = 'collapsible'>
+                        {{employee.employee_name}}
+                    </button>
+                    <div class="content">
+                        <p><strong>Employee name:</strong> {{employee.employee_name}}</p>
+                        <p><strong>Employee position:</strong> {{employee.employee_position}}</p>
+                        <p><strong>Employee description:</strong> {{employee.employee_description}}</p> 
+                        <img src="../../images/staff/{{employee.image_location}}" style = "width: 250px; height: 250px; object-fit: cover">
+                        <table>
+                            <tr>
+                                <td>
+                                    <form class="change_form" style="padding:0px 30px 10px 10px" action="../staff/admin_staff_new.php" method="POST">
+                                        <input type="hidden" name="change" value="edit">
+                                        <input type="hidden" name="employee_name" value="{{employee.employee_name}}">
+                                        <input type="hidden" name="employee_position" value="{{employee.employee_position}}">
+                                        <input type="hidden" name="employee_description" value="{{employee.employee_description}}">
+                                        <input type="hidden" name="employee_id" value="{{employee.employee_id}}">
+                                        <input type="hidden" name="employee_image" value="{{employee.image_location}}">
+                                        <input class="change" type="submit" value="Edit">
+                                    </form>
+                                </td>
+                                <td>
+                                    <form class="change_form" onsubmit="return confirm('Are you sure you want to remove this employee?');" style="padding:0px 30px 10px 10px" action='' method="post">
+                                        <input type="hidden" name="change" value="remove">
+                                        <input type="hidden" name="employee_id" value="{{employee.employee_id}}">
+                                        <input class="change" type="submit" value="Remove">
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>   
+            {%endfor%}  
+        </div>   
+    </div>
+
+    <script src="../itemExpand.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> <!--To import jquery-->
+    <script>
+        $(document).ready(function(){
+            $("#staff").addClass("current"); //To make the css style apply to the current section by adding class current to it
+        });
+    </script>
+
+{% endblock %}
